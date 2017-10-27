@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <managed-bean>
+        <description>Establishes the connection to the Code Enforcement Database for use throughout a session</description>
+        <managed-bean-name>dBConnection</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.integration.DBConnection</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <description>PProvides Back-end support for the basic property serach utility</description>
+        <managed-bean-name>propSearchBean</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.PropSearchBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>property</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.entities.Property</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <description>Manages a user's visit to the site, particularly it coordinates an active Property entity and related objects that the user might interact with, edit, update, report, etc. during the session.</description>
+        <managed-bean-name>visit</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.Visit</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+   
+    
+        <managed-bean>
+        <description>Responsible for pulling property data from Postgres and creating an object representation of that entity for use in the application. Also responsible for updating the database given a passed in entity, such as a Property object.</description>
+        <managed-bean-name>dbAction</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.integration.DbAction</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>login</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.Login</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <description>Handles user credential verification and initiates session building process upon successful authentication.</description>
+        <managed-bean-name>authentication</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.Authentication</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <description>Stores constants for use in Java classes</description>
+        <managed-bean-name>constants</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.util.Constants</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <description>Creates and coordinates singletons for use during all users' visits.</description>
+        <managed-bean-name>initializer</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.Initializer</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>userCoordinator</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.UserCoordinator</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <description>Handles Property Entity related operations on behalf of backing beans</description>
+        <managed-bean-name>propertyCoordinator</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.PropertyCoordinator</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <description>Bean for providing basic bean utility methods, such as retrieving the FacesContext object </description>
+        <managed-bean-name>backingBeanUtils</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.BackingBeanUtils</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+        
+    </managed-bean>
+    
+    <managed-bean>
+        <description>Represents the user in a particular session of the application. Stores basic user id info and access related keys</description>
+        <managed-bean-name>user</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.entities.User</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{authentication.login}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/propertysearch.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{authentication.login}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    <managed-bean>
+        <description>Responsible for pulling and pushing property data from database to object model</description>
+        <managed-bean-name>propertyIntegrator</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.integration.PropertyIntegrator</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+</faces-config>

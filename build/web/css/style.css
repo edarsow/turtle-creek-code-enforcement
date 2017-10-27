@@ -1,0 +1,253 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 14, 2017, 7:53:01 AM
+    Author     : cedba
+*/
+
+/* colors
+COG green: #7fb337
+COG red: #a0270f
+COG blue: #2d66cd
+COG yellow: #e3b73d
+
+
+*/
+
+
+h1{
+    font-size: 1.5em;
+    color: #2d66cd;
+    
+}
+
+h2{
+    font-size: 1.2em;
+    color: #a0270f;
+}
+
+h3{
+    font-size: 1em;
+    font-style: italic;
+    font-weight: bold;
+    color: #7fb337;
+    
+    
+}
+
+div.mainContainer{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Verdana, Verdana, Geneva, sans-serif;
+}
+
+p.note{
+    font-size: .9em;
+    font-style: italic;
+}
+
+img.headerImg{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+div.headerLinkCont{
+    display: inline-block;
+    float: right;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-right: 15px;
+    
+    
+    
+}
+
+/* TABLE STYLES */
+
+table.borders{
+    
+}
+
+table.borders {
+    border-collapse: collapse;
+}
+
+table.borders th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+table.borders th{
+    background-color: lightblue;
+}
+
+tr.resolved{
+    background-color: lightgreen;
+    
+}
+
+tr.pending{
+    background-color: lightyellow;
+    
+}
+
+tr.pastdeadline{
+    background-color: lightpink;
+}
+
+tr.reinspect{
+    background-color: lightpink
+}
+
+
+/* ------------------------------------- */
+
+
+a.headerLink:link {
+    color: #80b439;
+    text-decoration: none;
+}
+
+a.headerLink:visited{
+    color: #80b439;
+    text-decoration: none; 
+}
+
+a.headerLinks{
+    display: inline-block;
+    float: right;
+}
+
+div#header{
+    width: 100%;
+    clear:right;
+}
+
+div#headerLinks{
+    width: 100%;
+    height: 50px;
+    margin: 10px 10px 10px 10px;
+}
+
+div.headerLink a:before, a:visited{
+    color: green;
+
+    
+}
+
+p.footer{
+    font-style: italic;
+    size: 0.8em;
+    color: #e3b73d;
+}
+
+/* UI Controls Styling*/
+
+.inputText{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.commandButton{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+        
+}
+
+a.outputLink{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.buttonOwnLine{
+    display: block;
+    margin-bottom: 10px;
+    clear: left;
+}
+
+.textArea{
+    width: 400px;
+    margin-bottom: 10px;
+}
+
+select.selectOneListbox{   
+    margin-bottom: 10px;
+}
+
+span.uiLabel{
+    display: block;
+    clear: left;
+    margin-bottom: 10px;
+    font-weight: bold;
+    
+}
+
+input.selectBooleanCheckbox{
+    display: inline-block;
+    float: left;
+}
+
+div.checkBoxLabel{
+    display: block;
+    float: left;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+
+
+/* Error Styling */
+
+.msgWarn{
+    color: #00cc99;
+}
+
+.msgInfo{
+    color: #999999;
+}
+
+.msgFatal{
+    color: #ff0066;
+}
+
+span.msgError{
+    color: #6666ff;
+}
+
+/* Property Profile Styling */
+
+table.cases{
+    border-collapse: collapse;
+    border: 1px solid black;
+    
+}
+
+table.cases th{
+    text-align: left;
+    border: 1px solid blue;
+    background-color: green;
+}
+
+table.cases td{
+    text-align: left;
+    border: 1px solid blue;
+    padding: 5px;
+}
+
+tr.caseClosed{
+    background-color: #66ff66;
+}
+
+tr.caseOpen{
+    background-color: #9999ff;
+}

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Workflow Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css"></link>
+    </h:head>
+    <h:body>
+        
+        
+        <div class="mainContainer">
+            
+             
+             <div id="header">
+                <img src="resources/cedbHeader.jpg" class="headerImg"/>
+                <div id="headerLinks">
+                    <div class="headerLinkCont">Current User: Gary Hitchens</div>
+                    <div class="headerLinkCont"><a href="" class="headerLink">settings</a></div>
+                    <div class="headerLinkCont"><a href="" class="headerLink">dashboard</a></div>
+                    <div class="headerLinkCont"><a href="" class="headerLink">property search</a></div>
+                    <div class="headerLinkCont"><a href="" class="headerLink">cases</a></div>
+                    <div class="headerLinkCont"><a href="" class="headerLink">events</a></div>
+                    <div class="headerLinkCont"><a href="" class="headerLink">active property</a></div>
+                </div>
+            </div>
+            <hr />
+            
+            <h1>Workflow Dashboard</h1>
+            <h2>Pending Code Enforcement Cases</h2>
+            
+             <table class="borders">
+                <tr>
+                    <th>Municipality</th>
+                    <th>Property Address</th>
+                    <th>Case ID</th>
+                    <th>Status</th>
+                    <th>Date Opened</th>
+                    <th>Total Violations</th>
+                    <th>Resolved Violations</th>
+                    <th>Pending Violations</th>
+                    <th>Past-deadline</th>
+                    <th>Actions</th>
+                    
+                </tr>
+                <tr class="pastdeadline">
+                    <td>Pitcairn</td>
+                    <td>302 PRINCETON DR</td>
+                    <td>3778</td>
+                    <td>Pending</td>
+                    <td>4/13/2017</td>
+                    <td>4</td>
+                    <td>1</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td><a href="ce/casedetails.xhtml0.8 ">View Case</a></td>
+                </tr>
+                 <tr class="pending">
+                    <td>Pitcairn</td>
+                    <td>302 DUNBAR DR</td>
+                    <td>3738</td>
+                    <td>Pending</td>
+                    <td>4/15/2017</td>
+                    <td>3</td>
+                    <td>0</td>
+                    <td>3</td>
+                    <td>0</td>
+                    <td><a href="">View Case</a></td>
+                 </tr>
+                 <tr class="pastdeadline">
+                    <td>Pitcairn</td>
+                    <td>302 KINGSTON DR</td>
+                    <td>3734</td>
+                    <td>Pending</td>
+                    <td>4/16/2017</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td><a href="">View Case</a></td>
+                </tr>
+            </table>
+            
+            <h2>Occupancy Inspection Cases</h2>
+            <table class="borders">
+                <tr>
+                    <th>Municipality</th>
+                    <th>Property Address</th>
+                    <th>Case ID</th>
+                    <th>Status</th>
+                    <th>Date Opened</th>
+                    <th>Actions</th>
+                    
+                </tr>
+                <tr class="reinspect">
+                    <td>Pitcairn</td>
+                    <td>1006 GILCHREST DR</td>
+                    <td>4332</td>
+                    <td>Reinspection Required</td>
+                    <td>3/12/2017</td>
+                    <td><a href="">View Case</a></td>
+                </tr>
+                <tr>
+                    <td>Pitcairn</td>
+                    <td>100 THORNBERRY DR</td>
+                    <td>44232</td>
+                    <td>Awaiting First Inspection</td>
+                    <td>4/1/2017</td>
+                    <td><a href="">View Case</a></td>
+                </tr>
+            </table>
+            
+            
+            
+        </div>
+    </h:body>
+</html>
+
