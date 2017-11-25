@@ -32,7 +32,7 @@
     
    
     
-        <managed-bean>
+    <managed-bean>
         <description>Responsible for pulling property data from Postgres and creating an object representation of that entity for use in the application. Also responsible for updating the database given a passed in entity, such as a Property object.</description>
         <managed-bean-name>dbAction</managed-bean-name>
         <managed-bean-class>com.tcvcog.tcvce.integration.DbAction</managed-bean-class>
@@ -78,14 +78,13 @@
         <managed-bean-class>com.tcvcog.tcvce.application.PropertyCoordinator</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    
     <managed-bean>
         <description>Bean for providing basic bean utility methods, such as retrieving the FacesContext object </description>
         <managed-bean-name>backingBeanUtils</managed-bean-name>
         <managed-bean-class>com.tcvcog.tcvce.application.BackingBeanUtils</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
-        
     </managed-bean>
+
     
     <managed-bean>
         <description>Represents the user in a particular session of the application. Stores basic user id info and access related keys</description>
@@ -99,13 +98,14 @@
         <navigation-case>
             <from-action>#{authentication.login}</from-action>
             <from-outcome>success</from-outcome>
-            <to-view-id>/propertysearch.xhtml</to-view-id>
+            <to-view-id>/public/submitCERequest.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-action>#{authentication.login}</from-action>
             <from-outcome>failure</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
+   
         
     </navigation-rule>
     <managed-bean>
@@ -114,4 +114,68 @@
         <managed-bean-class>com.tcvcog.tcvce.integration.PropertyIntegrator</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    
+    <managed-bean>
+        <description>Creates a result set of possible municipalities</description>
+        <managed-bean-name>muniMap</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.resultsets.MuniMap</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+   
+    
+     <managed-bean>
+        <description>Models a request for code enforcement action</description>
+        <managed-bean-name>actionRequestBean</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.ActionRequestBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <description>Utility class for producting a hash map of action requestor types</description>
+        <managed-bean-name>requestorTypesMap</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.resultsets.RequestorTypesMap</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    
+    <managed-bean>
+        <description>Utility class for producting a hash map of action requestor types</description>
+        <managed-bean-name>publicViolationSet</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.resultsets.PublicViolationSet</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <description>Responsible for reading code enforcement action requests into and out of the PostgreSQL Database</description>
+        <managed-bean-name>cEActionRequestIntegrator</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.integration.CEActionRequestIntegrator</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <description>Backing bean for ActReqSubConf.xhtml confirmation of action request - public</description>
+        <managed-bean-name>actReqSubConfBean</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.ActReqSubConfBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <navigation-rule>
+        <from-view-id>/public/submitCERequest.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{actionRequestBean.submitActionRequest}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/public/actionReqSubConf.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{actionRequestBean.submitActionRequest}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/submitCERequest.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <description>Action Request object pushing into BeanLand</description>
+        <managed-bean-name>actionRequest</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.entities.ActionRequest</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    
 </faces-config>

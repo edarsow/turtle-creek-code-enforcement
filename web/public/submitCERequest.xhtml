@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
      
     <h:head>
         <title>Code Enforcement Action Request</title>
@@ -17,7 +18,7 @@
                 to investigate a possible municipal code violation.
             </p>
             <p> 
-                Requests submitted here are immediately sent to the code enforcement offical 
+                Requests submitted uhere are immediately sent to the code enforcement offical 
                 handling cases in the selected municipality. Once the form has been submitted
                 you will be issued a tracking number which can be used to monitor the status
                 of your request at any time and to send notes to the code enforcement officials regarding
@@ -32,221 +33,160 @@
             </p>
             <p>Pleae complete each section below to complete your request: </p>
             <hr />
-            <h3>Section 1: Property Information</h3>
+            <h3>Section 1: Property Location and Concern Information</h3>
             <f:view>
+                
                 <h:form id="actionRequestForm">
-                    <h:panelGroup  styleClass="propLookupPanel">
-                        
-                        <h:outputLabel for="selectMuni" >
-                            <h:outputText styleClass="uiLabel" value="Select the municipality in which the property resides" />
-                        </h:outputLabel>
-                        <h:selectOneListbox 
-                            title="Select a municipality:" 
-                            id="selectMuni" 
-                            styleClass="selectOneListbox">
-                            <f:selectItem itemLabel="Pitcairn" />
-                            <f:selectItem itemLabel="Churchhill" />
-                            <f:selectItem itemLabel="Wilmerding" />
-                        </h:selectOneListbox>
-                        <h:message for="selectMuni" showDetail="false" showSummary="true" 
-                                   warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
-                        
-                        <p class="note">Note that only properties within the boundaries of the above municipalities are served by the 
-                            Turtle Creek Valley Council of Governments code enforcment team.</p>
-                        
-                        <h:outputLabel for="addrPart" >
-                            <h:outputText styleClass="uiLabel" value="Find the property of concern:" />
-                        </h:outputLabel>
-                        
-                        <p class="note">Tip: Enter only the property number and street name, such as "988 Dover"</p>
-                        
-                        <h:inputText id="addrPart"
-                            size="20"
-                            value="123 Washington" />
-                                
-                        <h:commandButton
-                            value="Search for property"/>
-                        
-                        <!-- Fake table for rapid prototyping  -->
-                        
-                        <table>
-                        <tr>
-                        <th scope="col">Property ID</th>
-                        <th scope="col">Parcel ID</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Lot and Block</th>
-                        <th scope="col">Select</th>
-                        </tr>
-                        <tr>
-                        <td>12576.0</td>
-                        <td>0454A00089000000</td>
-                        <td>123 GARDENIA DR</td>
-                        <td>454-A-89</td>
-                        <td><input type="submit" name="form:properties:0:j_idt25" value="Select this property" /></td>
-                        </tr>
-                        <tr>
-                        <td>12656.0</td>
-                        <td>0453M00200000000</td>
-                        <td>1235 RODI RD</td>
-                        <td>453-M-200</td>
-                        <td><input type="submit" name="form:properties:1:j_idt25" value="Select this property" /></td>
-                        </tr>
-                        <tr>
-                        <td>12764.0</td>
-                        <td>0453J00140000000</td>
-                        <td>123 TYNEWOOD DR</td>
-                        <td>453-J-140</td>
-                        <td><input type="submit" name="form:properties:2:j_idt25" value="Select this property" /></td>
-                        </tr>
-                        </table>    
-                        <!-- END OF FAKE TABLE -->
-                        <br />
-                        
-                        <h:outputLabel for="manualProperty" >
-                            <h:outputText styleClass="uiLabel" value="Enter other address" />
-                        </h:outputLabel>
-                        <h:selectBooleanCheckbox id="manualProperty" styleClass="selectBooleanCheckbox"/> 
-                        <div class="checkBoxLabel">
-                            <span> Check this box if you cannot find the property in the search feature above</span>
-                        </div>
-                         <h:outputLabel for="manualAddress" >
-                            <h:outputText value="Enter Address or describe location " styleClass="uiLabel" />
-                        </h:outputLabel>
-                        <h:inputText id="manualAddress" value="The big pink house next to the municipal building" size="50" 
-                                     maxlength="40" tabindex="0" required="false" styleClass="inputText"/>
-                        <h:message for="manualAddress" showDetail="false" showSummary="true" 
-                                   warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
-                    </h:panelGroup>
+                    
+                    
+                    
+                    <h:outputLabel for="muni" >
+                        <h:outputText styleClass="uiLabel" value="Choose the municipality in which the concern exists" />
+                    </h:outputLabel>
+                    <p:selectOneMenu 
+                            id="muni" 
+                            value="#{actionRequestBean.muniID}">
+                            
+                        <f:selectItems value="#{muniMap.municipalityMap}"/>
+                            
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel for="manualAddress" >
+                        <h:outputText value="Enter the address of the property of concern or describe its location " styleClass="uiLabel" />
+                    </h:outputLabel>
+                    <p:inputText id="manualAddress" value="#{actionRequestBean.form_addressOfConcern}" 
+                                 style="width: 100%;" tabindex="0" required="false" styleClass="inputText"/>
+                    <h:message for="manualAddress" showDetail="false" showSummary="true" 
+                               warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+    
+                    
+                    <h:outputLabel for="violation" >
+                        <h:outputText styleClass="uiLabel" value="Choose the category of concern from the list or select 'other' and explain your concern below" />
+                    </h:outputLabel>
+                    <p:selectOneListbox 
+                            id="violation" 
+                            style="width: 100%;"
+                            value="#{actionRequestBean.violationTypeID}">
+                            
+                            <f:selectItems value="#{publicViolationSet.violationMap}"/>
+                            
+                    </p:selectOneListbox>
+
+
+                    <h:outputLabel for="describeConcern" >
+                        <h:outputText styleClass="uiLabel" value="Please describe the specifics of the code enforcement concern selected above" />
+                    </h:outputLabel>
+                    <p:inputTextarea 
+                        id="describeConcern" 
+                        styleClass="textArea" 
+                        rows="6" 
+                        required="true" 
+                        style="width: 100%;"
+                        value="#{actionRequestBean.form_requestDescription}"
+                        />
+                    <h:message for="describeConcern" showDetail="true" showSummary="true" 
+                               warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+
+                    <h:outputLabel for="urgent" >
+                            <h:outputText styleClass="uiLabel" value="Urgent issue" />
+                    </h:outputLabel>
+                    <h:selectBooleanCheckbox id="urgent" styleClass="selectBooleanCheckbox"/> 
+                                    
+                    <p>Check this box if your concern is time-sensitive in nature</p>
                     <hr />
-                    <h:panelGroup id="requestDetails">
-                        <h3>Section 2: Code Enforcement Request Details</h3>
-                        <h:outputLabel for="userNameInput" >
-                            <h:outputText value="Choose a code enformcent concern type " styleClass="uiLabel" />
-                        </h:outputLabel>
-                         <h:selectOneListbox 
-                            title="select a violation" 
-                            id="selectViolation" 
-                            styleClass="selectOneListbox">
-                            <f:selectItem itemLabel="Tall grass or weeds" />
-                            <f:selectItem itemLabel="Excessive Trash" />
-                            <f:selectItem itemLabel="Rodent or bug infestation" />
-                            <f:selectItem itemLabel="Inappropriate Signage" />
-                            <f:selectItem itemLabel="Signs of abandonement" />
-                            <f:selectItem itemLabel="Unsightly material storage" />
-                            <f:selectItem itemLabel="Other (describe in box when this row is selected" />
-                        </h:selectOneListbox>
-                        <h:message for="selectViolation" showDetail="true" showSummary="true" 
-                                   warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+                    
+                    <h3>Section 2: Requestor Contact Information</h3>
+            
+                    <h:outputLabel for="requestorType" >
+                        <h:outputText styleClass="uiLabel" value="Select the most appropriate category / role    " />
+                    </h:outputLabel>
+                    <p:selectOneMenu 
+                        id="requestorType" 
+                        value="#{actionRequestBean.requestorType}">
+                        <f:selectItems value="#{requestorTypesMap.requestTypes}"/>
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel for="requestorFirstName" >
+                        <h:outputText styleClass="uiLabel" value="Last Name" />
+                    </h:outputLabel>
+                    <h:inputText 
+                        id="requestorFirstName" 
+                        size="40" 
+                        value="#{actionRequestBean.form_requestorFName}" 
+                        styleClass="inputText" 
+                        required="true"/>
+                    <h:message for="requestorLastName" showDetail="true" showSummary="true" 
+                           warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
                         
-                        <h:outputLabel for="otherConcern" >
-                            <h:outputText styleClass="uiLabel" value="Other code enforcement concern:" />
-                        </h:outputLabel>
-                        
-                        <h:inputText id="otherConcern"
-                            size="40"
-                            value="Goat breeding on front lawn"
-                            styleClass="inputText"/>
-                        
-                        <h:outputLink id="advancedViolation" styleClass="outputLink">
-                            <h:outputText value="Advanced violation search (lookup by legal violation code)" />
-                        </h:outputLink> 
-                        
-                        <h:outputLabel for="describeConcern" >
-                            <h:outputText styleClass="uiLabel" value="Please describe the specifics of the code enforcement concern selected above" />
-                        </h:outputLabel>
-                        <h:inputTextarea id="describeConcern" styleClass="textArea" rows="6" required="true" />
-                        <h:message for="describeConcern" showDetail="true" showSummary="true" 
-                                   warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
-                        
-                        
-                        <h:outputLabel for="imageUpload" >
-                            <h:outputText styleClass="uiLabel" value="Upload a photo of the issue (optional)" />
-                        </h:outputLabel>
-                        
-                        <h:inputText id="imageUpload"
-                            size="40"
-                            value="c:/reallyCuteGoats.png"
-                            styleClass="inputText"
-                            required="false"/>
-                        <h:commandButton value="Select an image" styleClass="commandButton"/>
-                         <h:message for="imageUpload" showDetail="true" showSummary="true" 
-                                   warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
-                        <h:outputLabel for="urgent" >
-                                <h:outputText styleClass="uiLabel" value="Urgent issue" />
-                        </h:outputLabel>
-                        <h:selectBooleanCheckbox id="urgent" styleClass="selectBooleanCheckbox"/> 
-                        <div class="checkBoxLabel">
-                            <span> Check this box if the issue is time-sensitive in nature</span>
-                        </div>                           
-                        <br /><br />
-                        
-                        </h:panelGroup>
-                        <hr />
-                        
-                        <h3>Section 3: Requestor Details</h3>
-                        <h:panelGroup id="requstorDetails">
-                            <h:outputLabel for="requestorFirstName" >
-                                <h:outputText styleClass="uiLabel" value="First Name" />
-                            </h:outputLabel>
-                            <h:inputText id="requestorFirstName" size="40" value="Gertrude" styleClass="inputText" required="true"/>
-                            <h:message for="requestorFirstName" showDetail="true" showSummary="true" 
-                                   warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
-                            
-                            <h:outputLabel for="requestorLastName" >
-                                <h:outputText styleClass="uiLabel" value="Last Name" />
-                            </h:outputLabel>
-                            <h:inputText id="requestorLastName" size="40" value="Hawkins" styleClass="inputText" required="true"/>
-                            <h:message for="requestorLastName" showDetail="true" showSummary="true" 
-                                   warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
-                            
-                            <h:outputLabel for="requestorPhone" >
-                                <h:outputText styleClass="uiLabel" value="Phone Number" />
-                            </h:outputLabel>
-                            <h:inputText id="requestorPhone" size="40" value="123-233-2222" styleClass="inputText" required="true"/>
-                            <h:message for="requestorPhone" showDetail="true" showSummary="true" 
-                                   warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
-                            
-                            <h:outputLabel for="requestorEmail" >
-                                <h:outputText styleClass="uiLabel" value="Email (optional)" />
-                            </h:outputLabel>
-                            <h:inputText id="requestorEmail" size="40" value="gGoatSpy@peta.org" styleClass="inputText" required="false"/>
-                            <h:message for="requestorEmail" showDetail="true" showSummary="true" 
-                                   warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
-                            <p class="note">If you enter your email address, you will receive automatically generated 
-                                email notices of this request submission and email notices about major 
-                                changes in your request status (there are about 3-4 status changes
-                                over the life of most requests.)</p>
-                            
-                            <h:outputLabel for="selectRequestorRole" >
-                                <h:outputText value="Choose your role description" styleClass="uiLabel" />
-                            </h:outputLabel>
-                            <h:selectOneListbox 
-                                title="select a violation" 
-                                id="selectRequestorRole" 
-                                styleClass="selectOneListbox">
-                                <f:selectItem itemLabel="Neighbor or resident" />
-                                <f:selectItem itemLabel="Councilperson" />
-                                <f:selectItem itemLabel="Municipal Staff" />
-                                <f:selectItem itemLabel="Law enforcement" />
-                                <f:selectItem itemLabel="Other" />
-                            </h:selectOneListbox>
-                            
-                            <h:outputLabel for="remainAnonymous" >
-                                <h:outputText styleClass="uiLabel" value="I wish to remain anonymous" />
-                            </h:outputLabel>
-                            <h:selectBooleanCheckbox id="remainAnonymous" styleClass="selectBooleanCheckbox"/> 
-                            <div class="checkBoxLabel">
-                                <span> Check this box if you prefer to not be named during the issue investigation</span>
-                            </div>
-                        </h:panelGroup>
-                        <br /><br />
-                        <hr />
-                        
-                        <h3>Submit Request</h3>
-                            <h:commandButton id="submitRequest" value="Submit Code Enforcement Request" styleClass="buttonOwnLine"/>
-                            <p class="note">After successful form completion, you will be directed to a page listing your tracking number
-                                and a summary of the information you submitted.</p>
-                </h:form>
+                    <h:outputLabel for="requestorLastName" >
+                    <h:outputText styleClass="uiLabel" value="Last Name" />
+                    </h:outputLabel>
+                    <h:inputText id="requestorLastName" size="40" value="#{actionRequestBean.form_requestorLName}" styleClass="inputText" required="true"/>
+                    <h:message for="requestorLastName" showDetail="true" showSummary="true" 
+                           warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+
+                    <h:outputLabel for="requestorPhone" >
+                        <h:outputText styleClass="uiLabel" value="Phone Number" />
+                    </h:outputLabel>
+                    <h:inputText id="requestorPhone" size="40" value="#{actionRequestBean.form_requestor_phone}" styleClass="inputText" required="true"/>
+                    <h:message for="requestorPhone" showDetail="true" showSummary="true" 
+                           warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+
+                    <h:outputLabel for="requestorEmail" >
+                        <h:outputText styleClass="uiLabel" value="Email (optional)" />
+                    </h:outputLabel>
+                    <h:inputText id="requestorEmail" size="40" value="${actionRequestBean.form_requestor_email}" styleClass="inputText" required="false"/>
+                    <h:message for="requestorEmail" showDetail="true" showSummary="true" 
+                           warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+                    <p class="note">If you enter your email address, you will receive automatically generated 
+                        email notices of this request submission and email notices about major 
+                        changes in your request status (there are about 3-4 status changes
+                        over the life of most requests.)</p>
+                    
+                    <h:outputLabel for="requestorAddressStreet" >
+                        <h:outputText styleClass="uiLabel" value="Street Address" />
+                    </h:outputLabel>
+                    <h:inputText id="requestorAddressStreet" size="40" value="#{actionRequestBean.form_requestor_addressStreet}" styleClass="inputText" required="true"/>
+                    <h:message for="requestorAddressStreet" showDetail="true" showSummary="true" 
+                           warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+
+                    <h:outputLabel for="requestorAddressCity" >
+                        <h:outputText styleClass="uiLabel" value="City" />
+                    </h:outputLabel>
+                    <h:inputText id="requestorAddressCity" size="40" value="#{actionRequestBean.form_requestor_addressCity}" styleClass="inputText" required="true"/>
+                    <h:message for="requestorAddressCity" showDetail="true" showSummary="true" 
+                           warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+
+                    <h:outputLabel for="requestorAddressZip" >
+                        <h:outputText styleClass="uiLabel" value="ZIP Code" />
+                    </h:outputLabel>
+                    <h:inputText id="requestorAddressZip" size="40" value="#{actionRequestBean.form_requestor_addressZip}" styleClass="inputText" required="true"/>
+                    <h:message for="requestorAddressZip" showDetail="true" showSummary="true" 
+                           warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+                    
+                    <h:outputLabel for="remainAnonymous" >
+                        <h:outputText styleClass="uiLabel" value="I wish to remain anonymous" />
+                    </h:outputLabel>
+                    <h:selectBooleanCheckbox id="remainAnonymous" value="#{actionRequestBean.form_anonymous}" styleClass="selectBooleanCheckbox"/> 
+                    
+                    <div class="checkBoxLabel">
+                        <span> Check this box if you prefer to not be named during the issue investigation</span>
+                    </div>
+                <br /><br />
+                <hr />
+
+
+
+                <h3>Submit Request</h3>
+                    <h:commandButton 
+                        id="submitRequest" 
+                        value="Submit Code Enforcement Request" 
+                        styleClass="buttonOwnLine"
+                        action="#{actionRequestBean.submitActionRequest}"/>
+                    
+                    <p class="note">After successful form completion, you will be directed to a page listing your tracking number
+                        and a summary of the information you submitted.</p>
+                  </h:form>
             </f:view>
             <hr />
             <div><p class="footer">This system is mainted by the Turtle Creek Valley Council of Governments | (c) 2017</p></div>

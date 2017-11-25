@@ -38,6 +38,11 @@ h3{
     
 }
 
+.plainText{
+    font-weight: normal;
+    
+}
+
 div.mainContainer{
     width: 1000px;
     margin-left: auto;

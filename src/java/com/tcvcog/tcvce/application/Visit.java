@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,6 +9,7 @@ import com.tcvcog.tcvce.entities.Property;
 import com.tcvcog.tcvce.entities.Case;
 import com.tcvcog.tcvce.entities.Event;
 import com.tcvcog.tcvce.entities.User;
+import com.tcvcog.tcvce.entities.ActionRequest;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Visit {
     private Case activeCase;
     private Event activeEvent;
     private User currentUser;
+    private ActionRequest actionRequest;
     
     /**
      * Creates a new instance of Visit
@@ -67,6 +69,34 @@ public class Visit {
      */
     public void setActiveEvent(Event activeEvent) {
         this.activeEvent = activeEvent;
+    }
+
+    /**
+     * @return the actionRequest
+     */
+    public ActionRequest getActionRequest() {
+        return actionRequest;
+    }
+
+    /**
+     * @param actionRequest the actionRequest to set
+     */
+    public void setActionRequest(ActionRequest actionRequest) {
+        this.actionRequest = actionRequest;
+    }
+
+    /**
+     * @return the currentUser
+     */
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    /**
+     * @param currentUser the currentUser to set
+     */
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
     
     

@@ -29,6 +29,7 @@ import com.tcvcog.tcvce.domain.ObjectNotFoundException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import com.tcvcog.tcvce.entities.User;
+import com.tcvcog.tcvce.util.Constants;
 
 /**
  *
@@ -73,11 +74,11 @@ public class UserCoordinator implements Serializable {
             }
         
         Jdbc3PoolingDataSource source = new Jdbc3PoolingDataSource();
-        source.setServerName("localhost:5432");
-        source.setDatabaseName("cogdb");
-        source.setUser("cogdba");
-        source.setPassword("c0d3");
-        source.setMaxConnections(10);
+        source.setServerName(Constants.SERVER_NAME);
+        source.setDatabaseName(Constants.DB_NAME);
+        source.setUser(Constants.DB_USERNAME);
+        source.setPassword(Constants.DB_PASS);
+        source.setMaxConnections(Constants.MAX_CONNECTIONS);
         try {
             con = source.getConnection();
             System.out.println("connection to db open");
@@ -94,8 +95,18 @@ public class UserCoordinator implements Serializable {
         try {
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
+            
+            // ACCESS CONTROL: ONLY CREATE USER IF THE USER EXISTS IN THE SYSTEM
             if(rs.next()){
+                // TODO: Don't construct a User here--figure out how to
+                // get the mbcf to work
+                
                 User user = new User();
+                
+                // if we can make a user, make a visit
+//                Visit visit = new Visit();
+//                setVisit(visit);
+                
                 return user;
             } else {
                 throw new ObjectNotFoundException("No User found with those credentials. Try again, please.");

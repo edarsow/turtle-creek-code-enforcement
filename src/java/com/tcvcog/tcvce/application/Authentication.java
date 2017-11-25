@@ -51,7 +51,6 @@ public class Authentication extends BackingBeanUtils{
         
         try {
             newUser = getUserCorodinator().getUser(loginName, loginPassword);
-            //newUser = UserCoordinator.getUser(loginName, loginPassword);
             
         } catch(ObjectNotFoundException e){
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Incorrect Name or Password", ""));
@@ -94,10 +93,6 @@ public class Authentication extends BackingBeanUtils{
     public void setLoginPassword(String loginPassword) {
         this.loginPassword = loginPassword;
     }
-    
-    
-    
-    
     
     
 } // close clas

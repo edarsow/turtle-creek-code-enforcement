@@ -7,10 +7,9 @@ package com.tcvcog.tcvce.integration;
 
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.ResultSet;
-//import javax.enterprise.context.SessionScoped;
 import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
 import java.sql.SQLException;
+import com.tcvcog.tcvce.util.Constants;
 
 
 /**
@@ -36,12 +35,13 @@ public class DBConnection implements Serializable{
             }
         
         Jdbc3PoolingDataSource source = new Jdbc3PoolingDataSource();
+        source.setServerName(Constants.SERVER_NAME);
+        source.setDatabaseName(Constants.DB_NAME);
+        source.setUser(Constants.DB_USERNAME);
+        source.setPassword(Constants.DB_PASS);
+        source.setMaxConnections(Constants.MAX_CONNECTIONS);
 //        source.setDataSourceName("cogpgnew");
-        source.setServerName("localhost:5432");
-        source.setDatabaseName("cogdb");
-        source.setUser("cogdba");
-        source.setPassword("c0d3");
-        source.setMaxConnections(10);
+       
         try {
             con = source.getConnection();
             System.out.println("connection to db open");
@@ -49,46 +49,8 @@ public class DBConnection implements Serializable{
             ex.toString();
         }
         
-//        System.out.println("Looking up property in db connection");
-//        String query = "SELECT parid, lotandblock, address, apartmentno FROM property"
-//                + " WHERE parid='0297D00212000000';";
-//        ResultSet rs;
-//        String address = null;
-// 
-//        try {
-//            Statement stmt = con.createStatement();
-//            rs = stmt.executeQuery(query);
-//            rs.next();
-//            address = rs.getString("address");
-//            System.out.println("Address Found: " + address);
-//            
-//            
-//            
-//        } catch (SQLException ex) {
-//            System.out.println(ex.toString());
-//        }
     }
-    
-//    public Connection getConnection(){
-//        System.out.println("Creating DB Connection");
-//        
-//        Jdbc3PoolingDataSource source = new Jdbc3PoolingDataSource();
-//        source.setDataSourceName("cogpgnew");
-//        source.setServerName("localhost:5432");
-//        source.setDatabaseName("cogdb");
-//        source.setUser("cogdba");
-//        source.setPassword("c0d3");
-//        source.setMaxConnections(10);
-//        try {
-//            con = source.getConnection();
-//            System.out.println("connection to db open");
-//        } catch (SQLException ex) {
-//            ex.toString();
-//        }
-//        
-//        return con;
-//        
-//    }
+   
 
     /**
      * @return the con

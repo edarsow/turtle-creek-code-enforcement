@@ -9,16 +9,11 @@ import javax.inject.Named;
 import java.io.Serializable;
 import javax.sql.*;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.sql.ResultSet;
-import javax.inject.Inject;
 import java.util.List;
 import java.util.LinkedList;
 import com.tcvcog.tcvce.entities.Property;
-import com.tcvcog.tcvce.integration.DBConnection;
 import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
 import java.sql.SQLException;
 
@@ -62,7 +57,7 @@ public class PropSearchBean implements Serializable {
 //        source.setDataSourceName("cogpgnew");
         source.setServerName("localhost:5432");
         source.setDatabaseName("cogdb");
-        source.setUser("cogdba");
+        source.setUser("sylvia");
         source.setPassword("c0d3");
         source.setMaxConnections(10);
         try {

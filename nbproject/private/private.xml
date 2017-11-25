@@ -3,27 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/web/ce/casedetails.xhtml</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/web/login.xhtml</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/web/WEB-INF/faces-config.xml</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/entities/User.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/Initializer.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/Visit.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/integration/DbAction.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/web/property.xhtml</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/util/Constants.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/integration/PropertyIntegrator.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/domain/BaseException.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/web/munimanager.xhtml</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/BackingBeanUtils.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/Authentication.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/web/index.xhtml</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/entities/Property.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/UserCoordinator.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/PropSearchBean.java</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/web/dashboard.xhtml</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/web/ce/issuecitationletter.xhtml</file>
-            <file>file:/home/cedba/NetBeansProjects/tcvce/web/propertysearch.xhtml</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/UserCoordinator.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/entities/ActionRequest.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/BackingBeanUtils.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/Authentication.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/web/public/submitCERequest.xhtml</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/resultsets/PublicViolationSet.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/PropSearchBean.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/Visit.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/resultsets/MuniMap.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/resultsets/RequestorTypesMap.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/web/WEB-INF/faces-config.xml</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/Initializer.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/src/java/com/tcvcog/tcvce/application/ActionRequestBean.java</file>
+            <file>file:/home/sylvia/NetBeansProjects/tcvce/web/propertysearch.xhtml</file>
         </group>
     </open-files>
 </project-private>

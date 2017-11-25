@@ -36,5 +36,14 @@ public class Constants {
     public final static String USER_COORDINATOR_KEY = "userCoordinator";
     
     
+    public final static String SERVER_NAME = "localhost:5432";
+    public final static String DB_NAME = "cogdb";
+    public final static String DB_USERNAME = "sylvia";
+    public final static String DB_PASS = "c0d3";
+    public final static int MAX_CONNECTIONS = 10;
+    
+    
+    
+    
     
 }

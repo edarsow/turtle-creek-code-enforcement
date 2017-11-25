@@ -14,51 +14,26 @@
         <h2>Property Address Lookup</h2>
         <p>
         <h:form id="form">
-            <h:form>
-            <b>Choose number:</b> 
-            <p:spinner/>
-            <br/>
-            <b>Choose date:</b> 
-            <p:calendar/>
-            
-            <p:accordionPanel>
-<p:tab title="First Tab Title">
-<h:outputText value= "Lorem"/>
-...More content for first tab
-</p:tab>
-<p:tab title="Second Tab Title">
-<h:outputText value="Ipsum" />
-</p:tab>
-//any number of tabs
-</p:accordionPanel>
             
             
-<p:menubar>
-<p:submenu label="File">
-<p:submenu label="New">
-<p:menuitem value="Project" url="#"/>
-<p:menuitem value="Other" url="#"/>
-</p:submenu>
-<p:menuitem value="Open" url="#"></p:menuitem>
-<p:menuitem value="Quit" url="#"></p:menuitem>
-</p:submenu>
-<p:submenu label="Edit">
-<p:menuitem value="Undo" url="#"></p:menuitem>
-<p:menuitem value="Redo" url="#"></p:menuitem>
-</p:submenu>
-<p:submenu label="Help">
-<p:submenu label="Search">
-<p:submenu label="Text">
-    <p:menuitem value="Workspace" url="#" />
-</p:submenu>
-<p:menuitem value="File" url="#" />
-</p:submenu>
-</p:submenu>
-</p:menubar>
+            <h:selectOneListbox 
+                id="issueSelectOne" 
+                title="Select the issue of concern"
+
+                value="#{actionRequestBean.requestorType}">
+
+                <f:selectItem itemValue="1" itemLabel="item 1" />
+                <f:selectItem itemValue="2" itemLabel="item 2" />
+                <f:selectItem itemValue="3" itemLabel="item 3" />
+
+                            
+            </h:selectOneListbox>
             
-            
-            
-            </h:form>
+            <h:outputLabel value="Test Address:" for="address"/>
+            <h:outputText
+                id="requestorTypeDisplay"
+                value="#{actionRequestBean.requestorType}" />
+           
             
             <h3>Search by text in property Address</h3>
             <p:inputText
@@ -66,12 +41,13 @@
                 size="20"
                 value="#{propSearchBean.addrPart}" />
                     
-            
+            <p>
             <h:commandButton
                 value="Search"
                 action="#{propSearchBean.lookUpProperty}" />
-            
+            </p>
             <p>
+                
             <h:outputLabel value="Test Address:" for="address"/>
             <h:outputText
                 id="addrOutput"
