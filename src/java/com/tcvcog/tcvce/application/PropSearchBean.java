@@ -84,6 +84,7 @@ public class PropSearchBean implements Serializable {
                 p.setLotAndBlock(rs.getString("lotandblock"));
                 p.setAddress(rs.getString("address"));
                 propList.add(p);
+                con.close();
             }
             
         } catch (SQLException ex) {

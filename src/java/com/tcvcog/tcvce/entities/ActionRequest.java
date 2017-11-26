@@ -16,7 +16,9 @@
  */
 package com.tcvcog.tcvce.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Models the entity: code enforcement action request. 
@@ -35,37 +37,41 @@ import java.util.Date;
 public class ActionRequest {
     
     private int requestID;
-    private int issueType_issueTypeID;
-    private String issueType;
-    
-    
-    // map to the db field name
-    private String addressLine1;
-    private boolean notAtAddress;
-    
+    private int requestPublicCC;
     private int muni_muniID;
-    private String muni;
+
+    private int issueType_issueTypeID;
+    private int requestorID;
+    private java.time.LocalDateTime submittedTimeStamp;
+
+    private java.time.LocalDate dateOfRecord;
+    private String addressOfConcern;
+    private String addressZip;
     
+    private boolean notAtAddress;
     private String requestDescription;
-    
     private boolean isUrgent;
-    private Date dateOfRecord;
-    // retrieval number not included
-    private int req_stat_requestStatusID;
-    private String requestStatus;
-    // these are auto-populated at time of submission
-    private Date requestDate;
-    private Date requestTime;
-    // only editable by back-end users
+
+    private int caseID;
+    private int reqStat_requestStatusID;
     private String cogInternalNotes;
+    
     private String muniInternalNotes;
     private String publicExternalNotes;
+    // end threes
+    
+    // these are populated on the lookup when the linked
+    // tables with the String values are selected
+    private String issueTypeString;
+    private String muniNameString;
+    private String requestStatusString;
+    
+    // only editable by back-end users
     
     // Action requestor fields
     // names that appear without an _ map to db fields
     // names like requestor_notes means the db field name is
     // notes in the requestor table
-    private int requestorID;
     private String requestorFName;
     private String requestorLName;
     private String requestor_phone;
@@ -81,7 +87,7 @@ public class ActionRequest {
     private boolean anonymous;
     
     // connection to a case object -- TODO in expansion
-    private int caseID;
+    //private int caseID;
 
     /**
      * Creates a new instance of ActionRequest
@@ -118,17 +124,17 @@ public class ActionRequest {
     }
 
     /**
-     * @return the issueType
+     * @return the issueTypeString
      */
-    public String getIssueType() {
-        return issueType;
+    public String getIssueTypeString() {
+        return issueTypeString;
     }
 
     /**
-     * @param issueType the issueType to set
+     * @param issueTypeString the issueTypeString to set
      */
-    public void setIssueType(String issueType) {
-        this.issueType = issueType;
+    public void setIssueTypeString(String issueTypeString) {
+        this.issueTypeString = issueTypeString;
     }
 
     /**
@@ -274,17 +280,17 @@ public class ActionRequest {
     }
 
     /**
-     * @return the addressLine1
+     * @return the addressOfConcern
      */
-    public String getAddressLine1() {
-        return addressLine1;
+    public String getAddressOfConcern() {
+        return addressOfConcern;
     }
 
     /**
-     * @param addressLine1 the addressLine1 to set
+     * @param addressOfConcern the addressOfConcern to set
      */
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
+    public void setAddressOfConcern(String addressOfConcern) {
+        this.addressOfConcern = addressOfConcern;
     }
 
     /**
@@ -299,6 +305,10 @@ public class ActionRequest {
      */
     public void setNotAtAddress(boolean notAtAddress) {
         this.notAtAddress = notAtAddress;
+    }
+    
+    public boolean getNotAtAddress(){
+        return notAtAddress;
     }
 
     /**
@@ -316,17 +326,17 @@ public class ActionRequest {
     }
 
     /**
-     * @return the muni
+     * @return the muniNameString
      */
-    public String getMuni() {
-        return muni;
+    public String getMuniNameString() {
+        return muniNameString;
     }
 
     /**
-     * @param muni the muni to set
+     * @param muniNameString the muniNameString to set
      */
-    public void setMuni(String muni) {
-        this.muni = muni;
+    public void setMuniNameString(String muniNameString) {
+        this.muniNameString = muniNameString;
     }
 
     /**
@@ -360,72 +370,46 @@ public class ActionRequest {
     /**
      * @return the dateOfRecord
      */
-    public Date getDateOfRecord() {
+    public LocalDate getDateOfRecord() {
         return dateOfRecord;
     }
 
     /**
      * @param dateOfRecord the dateOfRecord to set
      */
-    public void setDateOfRecord(Date dateOfRecord) {
+    public void setDateOfRecord(LocalDate dateOfRecord) {
         this.dateOfRecord = dateOfRecord;
     }
 
     /**
-     * @return the req_stat_requestStatusID
+     * @return the reqStat_requestStatusID
      */
-    public int getReq_stat_requestStatusID() {
-        return req_stat_requestStatusID;
+    public int getReqStat_requestStatusID() {
+        return reqStat_requestStatusID;
     }
 
     /**
-     * @param req_stat_requestStatusID the req_stat_requestStatusID to set
+     * @param reqStat_requestStatusID the reqStat_requestStatusID to set
      */
-    public void setReq_stat_requestStatusID(int req_stat_requestStatusID) {
-        this.req_stat_requestStatusID = req_stat_requestStatusID;
+    public void setReqStat_requestStatusID(int reqStat_requestStatusID) {
+        this.reqStat_requestStatusID = reqStat_requestStatusID;
     }
 
     /**
-     * @return the requestStatus
+     * @return the requestStatusString
      */
-    public String getRequestStatus() {
-        return requestStatus;
+    public String getRequestStatusString() {
+        return requestStatusString;
     }
 
     /**
-     * @param requestStatus the requestStatus to set
+     * @param requestStatusString the requestStatusString to set
      */
-    public void setRequestStatus(String requestStatus) {
-        this.requestStatus = requestStatus;
+    public void setRequestStatusString(String requestStatusString) {
+        this.requestStatusString = requestStatusString;
     }
 
-    /**
-     * @return the requestDate
-     */
-    public Date getRequestDate() {
-        return requestDate;
-    }
-
-    /**
-     * @param requestDate the requestDate to set
-     */
-    public void setRequestDate(Date requestDate) {
-        this.requestDate = requestDate;
-    }
-
-    /**
-     * @return the requestTime
-     */
-    public Date getRequestTime() {
-        return requestTime;
-    }
-
-    /**
-     * @param requestTime the requestTime to set
-     */
-    public void setRequestTime(Date requestTime) {
-        this.requestTime = requestTime;
-    }
+ 
 
     /**
      * @return the internalNotes
@@ -513,6 +497,48 @@ public class ActionRequest {
      */
     public void setCaseID(int caseID) {
         this.caseID = caseID;
+    }
+
+    /**
+     * @return the requestPublicCC
+     */
+    public int getRequestPublicCC() {
+        return requestPublicCC;
+    }
+
+    /**
+     * @param requestPublicCC the requestPublicCC to set
+     */
+    public void setRequestPublicCC(int requestPublicCC) {
+        this.requestPublicCC = requestPublicCC;
+    }
+
+    /**
+     * @return the submittedTimeStamp
+     */
+    public LocalDateTime getSubmittedTimeStamp() {
+        return submittedTimeStamp;
+    }
+
+    /**
+     * @param submittedTimeStamp the submittedTimeStamp to set
+     */
+    public void setSubmittedTimeStamp(LocalDateTime submittedTimeStamp) {
+        this.submittedTimeStamp = submittedTimeStamp;
+    }
+
+    /**
+     * @return the addressZip
+     */
+    public String getAddressZip() {
+        return addressZip;
+    }
+
+    /**
+     * @param addressZip the addressZip to set
+     */
+    public void setAddressZip(String addressZip) {
+        this.addressZip = addressZip;
     }
     
 }

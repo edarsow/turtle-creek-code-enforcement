@@ -22,6 +22,8 @@ import java.sql.*;
 import java.util.HashMap;
 import com.tcvcog.tcvce.util.Constants;
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -36,122 +38,179 @@ public class CEActionRequestIntegrator extends BackingBeanUtils {
     public CEActionRequestIntegrator() {
     }
     
-    public void submitCEActionRequest(ActionRequest request){
+    public int submitCEActionRequest(ActionRequest request){
         System.out.println("Writing Action Request Into DB");
+        int controlCode = 0;
+        PreparedStatement insertAction = null;
+        
+        System.out.println("DATE DEBUGGING:");
+        System.out.println("Get current time stamp:");
+        System.out.println(getCurrentTimeStamp().toString());
+        System.out.println("Date of record:");
+        Date pracDate = new Date(request.getDateOfRecord().toEpochDay());
+        System.out.println(pracDate.toString());
+        
 //        Logger.getLogger(CEActionRequestIntegrator.class.getName()).log(Level.INFO, null, "Attempting ce request submission");
         
         StringBuilder qbuilder = new StringBuilder();
-        qbuilder.append("INSERT INTO public.codeEnfActionRequest ("
-//                + "requestid, "
-                + "issuetype_issuetypeid, "
-                + "actrequestor_requestorID, "
-                + "addressline1, "
-//                + "notataddress, "
-                + "muni_muniid, "
-                + "requestdescription " 
-//                + "isurgent, "
-//                + "dateofrecord, "
-//                + "retrievalnumber, "
-//                + "reqstat_requeststatusid, "
-//                + "requestdate, "
-//                + "requesttime, "
-//                + "internalnotes");
-                + ") ");
-        qbuilder.append("VALUES (");
-//        qbuilder.append("DEFAULT ,");  // DB creates with id sequence
-        qbuilder.append(request.getIssueType_issueTypeID());
-        qbuilder.append(" , ");
+        qbuilder.append("INSERT INTO public.codeenfactionrequest(\n" 
+                + "requestpubliccc, muni_muniid, "
+                + "issuetype_issuetypeid, actrequestor_requestorid, submittedtimestamp, "
+                + "dateofrecord, addressofconcern, addressZip, "
+                + "notataddress, requestdescription, isurgent, "
+                + "caseid, reqstat_requeststatusid, coginternalnotes, "
+                + "muniinternalnotes, publicexternalnotes)\n" +
+                "    VALUES (?, ?, ?, \n" +
+                "            ?, ?, ?, ?, \n" +
+                "            ?, ?, ?, ?, ?, \n" +
+                "            ?, ?, ?, \n" +
+                "            ?);");
         
-        qbuilder.append("1, ");
-        
-        qbuilder.append(" \'");
-        qbuilder.append(request.getAddressLine1());
-        qbuilder.append(" \'");
-        
-        qbuilder.append(" , ");
-        qbuilder.append(request.getMuni_muniID());
-        qbuilder.append(" , ");
-        
-        qbuilder.append(" \'");
-        qbuilder.append(request.getRequestDescription());
-        qbuilder.append(" \'");
-        
-        qbuilder.append(");"); // close INSERT
-        System.out.println(qbuilder.toString());
-        
-        // Complete INSERT statement into codeEnfActionRequest table
-        
-        /*
-        INSERT INTO public.codeenfactionrequest(
-            requestid, issuetype_issuetypeid, actrequestor_requestorid, caseid, 
-            addressline1, notataddress, muni_muniid, requestdescription, 
-            isurgent, dateofrecord, retrievalnumber, reqstat_requeststatusid, 
-            requestdate, requesttime, internalnotes)
-    VALUES (?, ?, ?, ?, 
-            ?, ?, ?, ?, 
-            ?, ?, ?, ?, 
-            ?, ?, ?);
-
-        */
+      
         
         try {
             Connection con = getPostgresCon();
-            Statement stmt = con.createStatement();
+            
+            insertAction = con.prepareStatement(qbuilder.toString());
+            
+           // insertAction.setInt(1, request.getRequestID());
+            controlCode = getControlCodeFromTime();
+            insertAction.setInt(1, controlCode);
+            insertAction.setInt(2, request.getMuni_muniID());
+            
+            insertAction.setInt(3, request.getIssueType_issueTypeID());
+            // TODO deal with requestor flow
+            insertAction.setInt(4, 1); 
+            
+            insertAction.setTimestamp(5, getCurrentTimeStamp());
+            
+            java.sql.Date date = new Date(request.getDateOfRecord().toEpochDay()) ;
+            insertAction.setDate(6, date);
+//            insertAction.setDate(7, java.sql.Date.valueOf(request.getDateOfRecord()));
+            insertAction.setString(7, request.getAddressOfConcern());
+            insertAction.setString(8, request.getAddressZip());
+            
+            insertAction.setBoolean(9, request.getNotAtAddress());
+            insertAction.setString(10, request.getRequestDescription());
+            insertAction.setBoolean(11, request.isIsUrgent());
+            
+            insertAction.setInt(12, request.getCaseID());
+            
+            insertAction.setInt(13, 1);
+          //  insertAction.setInt(14, request.getReqStat_requestStatusID());
+            insertAction.setString(14, request.getCogInternalNotes());
+            
+            insertAction.setString(15, request.getMuniInternalNotes());
+            insertAction.setString(16, request.getPublicExternalNotes());
             
             // INSERT REQUEST INTO DATABASE
-            stmt.executeUpdate(qbuilder.toString());
+            insertAction.executeUpdate();
+            insertAction.close();
             
+            
+            
+            insertAction.close();
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(CEActionRequestIntegrator.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return controlCode;
         
     } // close submitActionRequest
     
-    public ActionRequest getActionRequest(int actionRequestId){
-        ActionRequest req = new ActionRequest();
+    public ActionRequest getActionRequest(int controlCode){
+        ActionRequest actionRequest = new ActionRequest();
         StringBuilder sb = new StringBuilder();
         
-        sb.append("SELECT requestid, issuetype_issuetypeid, actionRqstIssueType.typeName, caseid, \n" +
-"       addressline1, notataddress, muni_muniid, muniName, requestdescription, \n" +
-"       isurgent, dateofrecord, retrievalnumber, reqstat_requeststatusid, statusName,\n" +
-"       requestdate, requesttime, coginternalnotes, muniinternalnotes, \n" +
-"       publicexternalnotes, actrequestor_requestorid, actionRequestorType_typeID, actionRequestorType.typeName, \n" +
-"       requestorFName, requestorLName, actionrequestor.phone, email, address_street, address_city, address_zip, anonymous\n" +
+        sb.append("SELECT requestid, requestpubliccc, muni_muniid, \n" +
+"	issuetype_issuetypeid, actrequestor_requestorid, submittedtimestamp, \n" +
+"	dateofrecord, addressofconcern, codeenfactionrequest.addresszip, \n" +
+"	notataddress, requestdescription, isurgent, \n" +
+"	caseid,reqstat_requeststatusid, coginternalnotes, \n" +
+"	muniinternalnotes, publicexternalnotes,\n" +
+"	actionRqstIssueType.typeName AS typename, municipality.muniName AS muniname, requestStatus.statusName AS statusname \n" +
 "	FROM public.codeenfactionrequest INNER JOIN public.actionrequestor ON actrequestor_requestorid = requestorid\n" +
 "		INNER JOIN actionrqstissuetype ON issuetype_issuetypeid = issuetypeid\n" +
 "		INNER JOIN requestStatus ON reqStat_requestStatusID = requestStatusID\n" +
 "		INNER JOIN municipality ON muni_muniID = municipalityID\n" +
-"		INNER JOIN actionRequestorType ON actionRequestorType_typeID = typeID ");
-        sb.append("WHERE requestid = ");
-        sb.append(actionRequestId);
+"		INNER JOIN actionRequestorType ON actionRequestorType_typeID = typeID");
+        sb.append(" WHERE requestpubliccc = ");
+        sb.append(String.valueOf(controlCode));
         sb.append(";");
         
-        ResultSet rs;
+        System.out.println("Select Statement: ");
+        System.out.println(sb.toString());
+        
+         ResultSet rs;
          try {
             Connection con = getPostgresCon();
             Statement stmt = con.createStatement();
             
             // Retrieve action data from postgres
            rs = stmt.executeQuery(sb.toString());
-           rs.next();
-           req.setRequestID(rs.getInt("requestid"));
-           req.setIssueType_issueTypeID(rs.getInt("issuetype)issuetypeid"));
-           req.setRequestID(rs.getInt("requestid"));
+           while(rs.next()){
            
+           actionRequest.setRequestID(rs.getInt("requestid"));
+           actionRequest.setRequestPublicCC(rs.getInt("requestPubliccc"));
+           actionRequest.setMuni_muniID(rs.getInt("muni_muniid"));
            
+           actionRequest.setIssueType_issueTypeID(rs.getInt("issuetype_issuetypeid"));
+           // TODO integrate requestorID
+           actionRequest.setSubmittedTimeStamp(rs.getTimestamp("submittedtimestamp").toLocalDateTime());
            
+           actionRequest.setDateOfRecord(rs.getDate("dateofrecord").toLocalDate());
+           actionRequest.setAddressOfConcern(rs.getString("addressofconcern"));
+           actionRequest.setAddressZip(rs.getString("addresszip"));
+           
+           actionRequest.setNotAtAddress(rs.getBoolean("notataddress"));
+           actionRequest.setRequestDescription(rs.getString("requestDescription"));
+           actionRequest.setIsUrgent(rs.getBoolean("isurgent"));
+           
+           actionRequest.setCaseID(rs.getInt("caseid"));;
+           actionRequest.setReqStat_requestStatusID(rs.getInt("reqStat_requestStatusID"));
+           actionRequest.setCogInternalNotes(rs.getString("coginternalnotes"));
+           
+           actionRequest.setMuniInternalNotes(rs.getString("muniinternalnotes"));
+           actionRequest.setPublicExternalNotes(rs.getString("publicexternalnotes"));
+           
+           // pulling from auxillary tables' columns from the SQL joins
+           actionRequest.setIssueTypeString(rs.getString("typeName"));
+           actionRequest.setMuniNameString(rs.getString("muniName"));
+           actionRequest.setRequestStatusString(rs.getString("statusname"));
+           }
+            rs.close();
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(CEActionRequestIntegrator.class.getName()).log(Level.SEVERE, null, ex);
         }
          
-         
-         
-        
-        
-        return req;
-    }
+        return actionRequest;
+    } // close getActionRequest
     
-    
-}
+    public LinkedList getCEActionRequestList(){
+        LinkedList<ActionRequest> requestList = new LinkedList();
+        String query = "SELECT requestpubliccc FROM public.codeenfactionrequest"; 
+        ResultSet rs;
+         
+         int cc;
+         try {
+            Connection con = getPostgresCon();
+            Statement stmt = con.createStatement();
+            
+            // Retrieve action data from postgres
+           rs = stmt.executeQuery(query);
+           while(rs.next()){
+               cc = rs.getInt("requestpubliccc");
+               requestList.add(getActionRequest(cc));
+           } // close while
+           rs.close();
+           con.close();
+               
+         } catch (SQLException ex) {
+                Logger.getLogger(CEActionRequestIntegrator.class.getName()).log(Level.SEVERE, null, ex);
+        } // close try/catch
+         
+         return requestList;
+         
+    } // close method
+} // close class

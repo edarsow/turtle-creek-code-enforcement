@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Manage Code Enforcement Action Requests</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            
+            <h:form id="manageCEActionRequests">
+            <p:dataTable 
+                id="actionRequestsTable"
+                value="#{requestManagementBBean.requestList}"
+                var="req" 
+                binding="#{requestManagementBBean.requestTable}">
+                
+                <p:column>
+                    <f:facet name="cc">
+                        <h:outputText value="Control Code"
+                                      styleClass="tableColHeader"/>
+                    </f:facet>
+                    <h:outputText value="#{req.requestPublicCC}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="muni">
+                        <h:outputText value="Municipality"
+                                      styleClass="tableColHeader"/>
+                    </f:facet>
+                    <h:outputText value="#{req.muniNameString}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="add">
+                        <h:outputText value="Address"
+                                      styleClass="tableColHeader"/>
+                    </f:facet>
+                    <h:outputText value="#{req.addressOfConcern}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="phase">
+                        <h:outputText value="Request Phase"
+                                      styleClass="tableColHeader"/>
+                    </f:facet>
+                    <h:outputText value="#{req.requestStatusString}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="desc">
+                        <h:outputText value="Description of Concern"
+                                      styleClass="tableColHeader"/>
+                    </f:facet>
+                    <h:outputText value="#{req.requestDescription}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="actions">
+                        <h:outputText value="Available Actions"
+                                      styleClass="tableColHeader"/>
+                    </f:facet>
+                    <p:commandLink value="manage" ajax="true"
+                                   actionListener="#{requestManagementBBean.manage}">
+                            <f:setPropertyActionListener 
+                                value="#{req}"
+                                target="#{requestManagementBBean.selectedRequest}"/>
+                            
+                    </p:commandLink>
+                
+                </p:column>
+
+
+                
+            
+            
+            </p:dataTable>
+            
+            
+            <h:outputText value="#{requestManagementBBean.currentRequestCC}"/>
+            
+        </h:form>
+            
+        </f:view>
+        
+        
+        
+    </h:body>
+</html>
+

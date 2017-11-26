@@ -21,6 +21,8 @@ import javax.enterprise.context.Dependent;
 import javax.faces.bean.*;
 import javax.faces.component.html.HtmlSelectOneListbox;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.time.LocalDate;
 import com.tcvcog.tcvce.application.BackingBeanUtils;
 import java.io.Serializable;
 import com.tcvcog.tcvce.entities.ActionRequest;
@@ -68,6 +70,8 @@ public class ActionRequestBean extends BackingBeanUtils implements Serializable{
      * Creates a new instance of ActionRequestBean
      */
     public ActionRequestBean(){
+        // set date of record to current date
+        form_dateOfRecord = new Date(LocalDate.now().toEpochDay());
     }
     
     
@@ -77,15 +81,19 @@ public class ActionRequestBean extends BackingBeanUtils implements Serializable{
      * @return 
      */
     public String submitActionRequest(){
+        
+        int controlCode;
+        
         System.out.println("Building action request in Bean");
         ActionRequest aRequest = new ActionRequest();
         aRequest.setIssueType_issueTypeID(violationTypeID);
         aRequest.setMuni_muniID(muniID);
-        aRequest.setAddressLine1(form_addressOfConcern);
+        aRequest.setAddressOfConcern(form_addressOfConcern);
         aRequest.setNotAtAddress(form_notAtAddress);
         aRequest.setRequestDescription(form_requestDescription);
         aRequest.setIsUrgent(form_isUrgent);
-        aRequest.setDateOfRecord(form_dateOfRecord);
+        aRequest.setDateOfRecord(LocalDate.ofEpochDay(
+                form_dateOfRecord.getTime()));
         
         // Requestor Information
         aRequest.setRequestorID(requestorTypeID);
@@ -102,8 +110,10 @@ public class ActionRequestBean extends BackingBeanUtils implements Serializable{
         // should't be making a business object in this actionMethod
         // TODO Fix this structure!
         CEActionRequestIntegrator integrator = new CEActionRequestIntegrator();
-        integrator.submitCEActionRequest(aRequest);
-        submittedRequest = aRequest;
+        controlCode = integrator.submitCEActionRequest(aRequest);
+        
+        submittedRequest = integrator.getActionRequest(controlCode);
+        
         
         //getVisit().setActionRequest(aRequest);
         

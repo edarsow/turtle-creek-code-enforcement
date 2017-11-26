@@ -15,46 +15,50 @@
             <h1>Turtle Creek Valley Code Enforcement Management System (CEMS)</h1>
             <h2>Your most recent request submission</h2>
             <f:view>
-                
               
-                <h3>Chaining Object calls--could this be my salvation?</h3>
                 
-                <h:outputText
-                        styleClass="uiLabel" 
-                        value="#{actionRequestBean.submittedRequest.requestDescription}" />
-               
+                
                 <h3>Your Request Control Code:</h3>
+                   <h:outputText
+                        styleClass="plainText" 
+                        value="#{actionRequestBean.submittedRequest.requestPublicCC}" />
+                   <h4>Please save this number for your records (snap a pic, write it down, etc.)</h4>
                 
                 
                 <h3>Copy of submitted request</h3>
-                <p>
-                    <h4>Violation Type ID</h4>
-                   <h:outputText
-                   styleClass="plainText" 
-                   value="#{actionRequestBean.violationTypeID}" />
-                </p>
+                
+                    <h4>Violation Type:</h4>
+                        <p>
+                           <h:outputText
+                           styleClass="plainText" 
+                           value="#{actionRequestBean.submittedRequest.issueTypeString}" />
+                        </p>
                     <h4>Municipality: </h4>
-                <p>
-                <h:outputText
-                   styleClass="plainText" 
-                   value="#{actionRequestBean.muniID}" />
-                </p>
-                <p>
-                <h:outputText
-                   styleClass="plainText" 
-                   value="#{actionRequestBean.form_addressOfConcern}" />
-                </p>
-                <p>
-                <h:outputText
-                   styleClass="plainText" 
-                   value="#{actionRequestBean.form_requestDescription}" />
-                </p>
-                <p>
-                <h:outputText
-                   styleClass="plainText" 
-                   value="#{actionRequestBean.requestorType}" />
-                </p>
-              
+                        <p><h:outputText
+                           styleClass="plainText" 
+                           value="#{actionRequestBean.submittedRequest.muniNameString}" /></p>
+
+                    <h4>Address of Concern: </h4>
+                        <p><h:outputText
+                           styleClass="plainText" 
+                           value="#{actionRequestBean.submittedRequest.addressOfConcern}" /></p>
+
+                    <h4>Request Description: </h4>
+                        <p><h:outputText
+                           styleClass="plainText" 
+                           value="#{actionRequestBean.submittedRequest.requestDescription}" /></p>
+                    
+                    <h4>Rquestor Type: </h4>
+                        <p><h:outputText
+                           styleClass="plainText" 
+                           value="#{actionRequestBean.submittedRequest.actionRequestorType}" /></p>
+
+                    <h4>Notes on case made for public viewing: </h4>
+                        <p><h:outputText
+                           styleClass="plainText" 
+                           value="#{actionRequestBean.submittedRequest.publicExternalNotes}" /></p>
+
+
               
  
             </f:view>

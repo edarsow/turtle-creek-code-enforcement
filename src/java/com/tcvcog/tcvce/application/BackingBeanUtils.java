@@ -23,6 +23,10 @@ import javax.inject.Named;
 import javax.faces.application.Application;
 import java.sql.Connection;
 import com.tcvcog.tcvce.integration.DBConnection;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+
 
 /**
  *
@@ -49,6 +53,12 @@ public class BackingBeanUtils implements Serializable{
         //userCoordinator = new UserCoordinator();
         
        
+        
+    }
+    
+    public static java.sql.Timestamp getCurrentTimeStamp(){
+        java.util.Date date = new java.util.Date();
+        return new java.sql.Timestamp(date.getTime());
         
     }
     
@@ -94,6 +104,17 @@ public class BackingBeanUtils implements Serializable{
      */
     public void setPostgresCon(Connection postgresCon) {
         this.postgresCon = postgresCon;
+    }
+    
+    public int getControlCodeFromTime(){
+         long dateInMs = new Date().getTime();
+         
+         String numAsString = String.valueOf(dateInMs);
+         String reducedNum = numAsString.substring(7);
+         int controlCode = Integer.parseInt(reducedNum);
+         
+            
+         return controlCode;
     }
     
 }

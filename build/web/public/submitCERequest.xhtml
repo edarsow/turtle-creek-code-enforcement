@@ -87,10 +87,27 @@
                     <h:message for="describeConcern" showDetail="true" showSummary="true" 
                                warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
 
+                     <h:outputLabel for="dateOfRecord" >
+                            <h:outputText styleClass="uiLabel" value="If different from today, select the date of the violation" />
+                    </h:outputLabel>
+                    <p:calendar value="#{actionRequestBean.form_dateOfRecord}" 
+                                mode="popup" 
+                                id="dateOfRecord"
+                                showOn="button"
+                                pattern="EEE, dd MMM, yyyy"/>
+                    
+                    <h:message for="dateOfRecord" showDetail="true" showSummary="true" 
+                           warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
+                        
+                    
+                    
+                    
                     <h:outputLabel for="urgent" >
                             <h:outputText styleClass="uiLabel" value="Urgent issue" />
                     </h:outputLabel>
                     <h:selectBooleanCheckbox id="urgent" styleClass="selectBooleanCheckbox"/> 
+                    
+                    
                                     
                     <p>Check this box if your concern is time-sensitive in nature</p>
                     <hr />
@@ -114,21 +131,21 @@
                         size="40" 
                         value="#{actionRequestBean.form_requestorFName}" 
                         styleClass="inputText" 
-                        required="true"/>
+                        required="false"/>
                     <h:message for="requestorLastName" showDetail="true" showSummary="true" 
                            warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
                         
                     <h:outputLabel for="requestorLastName" >
                     <h:outputText styleClass="uiLabel" value="Last Name" />
                     </h:outputLabel>
-                    <h:inputText id="requestorLastName" size="40" value="#{actionRequestBean.form_requestorLName}" styleClass="inputText" required="true"/>
+                    <h:inputText id="requestorLastName" size="40" value="#{actionRequestBean.form_requestorLName}" styleClass="inputText" required="false"/>
                     <h:message for="requestorLastName" showDetail="true" showSummary="true" 
                            warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
 
                     <h:outputLabel for="requestorPhone" >
                         <h:outputText styleClass="uiLabel" value="Phone Number" />
                     </h:outputLabel>
-                    <h:inputText id="requestorPhone" size="40" value="#{actionRequestBean.form_requestor_phone}" styleClass="inputText" required="true"/>
+                    <h:inputText id="requestorPhone" size="40" value="#{actionRequestBean.form_requestor_phone}" styleClass="inputText" required="false"/>
                     <h:message for="requestorPhone" showDetail="true" showSummary="true" 
                            warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
 
@@ -146,21 +163,21 @@
                     <h:outputLabel for="requestorAddressStreet" >
                         <h:outputText styleClass="uiLabel" value="Street Address" />
                     </h:outputLabel>
-                    <h:inputText id="requestorAddressStreet" size="40" value="#{actionRequestBean.form_requestor_addressStreet}" styleClass="inputText" required="true"/>
+                    <h:inputText id="requestorAddressStreet" size="40" value="#{actionRequestBean.form_requestor_addressStreet}" styleClass="inputText" required="false"/>
                     <h:message for="requestorAddressStreet" showDetail="true" showSummary="true" 
                            warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
 
                     <h:outputLabel for="requestorAddressCity" >
                         <h:outputText styleClass="uiLabel" value="City" />
                     </h:outputLabel>
-                    <h:inputText id="requestorAddressCity" size="40" value="#{actionRequestBean.form_requestor_addressCity}" styleClass="inputText" required="true"/>
+                    <h:inputText id="requestorAddressCity" size="40" value="#{actionRequestBean.form_requestor_addressCity}" styleClass="inputText" required="false"/>
                     <h:message for="requestorAddressCity" showDetail="true" showSummary="true" 
                            warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
 
                     <h:outputLabel for="requestorAddressZip" >
                         <h:outputText styleClass="uiLabel" value="ZIP Code" />
                     </h:outputLabel>
-                    <h:inputText id="requestorAddressZip" size="40" value="#{actionRequestBean.form_requestor_addressZip}" styleClass="inputText" required="true"/>
+                    <h:inputText id="requestorAddressZip" size="40" value="#{actionRequestBean.form_requestor_addressZip}" styleClass="inputText" required="false"/>
                     <h:message for="requestorAddressZip" showDetail="true" showSummary="true" 
                            warnClass="msgWarn" infoClass="msgInfo" fatalClass="msgFatal" errorClass="msgError" />
                     

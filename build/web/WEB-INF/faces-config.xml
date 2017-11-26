@@ -176,6 +176,10 @@
         <managed-bean-class>com.tcvcog.tcvce.entities.ActionRequest</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-    
-    
+    <managed-bean>
+        <description>Provides backing bean utilities for the action requestmanagement.xhtml page</description>
+        <managed-bean-name>requestManagementBBean</managed-bean-name>
+        <managed-bean-class>com.tcvcog.tcvce.application.RequestManagementBBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>
